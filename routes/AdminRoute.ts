@@ -5,9 +5,9 @@ const router = express.Router();
 
 router.post("/vendor", CreateVendor);
 
-router.post("/vendors", GetVendors);
+router.get("/vendors", GetVendors);
 
-router.post("/vendor/:id", GetVendorById);
+router.get("/vendor/:id", GetVendorById);
 
 router.get("/", (req: Request, res: Response, next: NextFunction) => {
   res.json({ message: "Hello from Admin" });

@@ -3,6 +3,14 @@ import { ICreateVendorInput } from "../dto";
 import { Vendor } from "../models/Vendor";
 import { GeneratePasswordEncrypted, GenerateSalt } from "../utility";
 
+export const FindVendor = async (id: string | undefined, email?: string) => {
+  if (email) {
+    return await Vendor.findOne({ email: email });
+  } else {
+    return await Vendor.findById(id);
+  }
+};
+
 export const CreateVendor = async (req: Request, res: Response, next: NextFunction) => {
   const { name, address, email, foodType, ownerName, phone, pincode, password } = <ICreateVendorInput>req.body;
 
@@ -36,6 +44,24 @@ export const CreateVendor = async (req: Request, res: Response, next: NextFuncti
   return res.json(createdVendor);
 };
 
-export const GetVendors = async (req: Request, res: Response, next: NextFunction) => {};
+export const GetVendors = async (req: Request, res: Response, next: NextFunction) => {
+  const vendors = await Vendor.find();
 
-export const GetVendorById = async (req: Request, res: Response, next: NextFunction) => {};
+  if (vendors !== null) {
+    return res.json(vendors);
+  }
+
+  return res.json({ message: "vendors data not available" });
+};
+
+export const GetVendorById = async (req: Request, res: Response, next: NextFunction) => {
+  const vendorId = req.params.id;
+
+  const vendorFound = await Vendor.findById(vendorId);
+
+  if (vendorFound !== null) {
+    return res.json(vendorFound);
+  }
+
+  return res.json({ message: "vendor not found" });
+};
