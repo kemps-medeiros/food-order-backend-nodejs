@@ -16,6 +16,6 @@ router.get("/foods-in-30-min/:pincode", GetFoodsIn30Min);
 router.get("/search/:pincode", SearchFoods);
 
 /** --------------Find Restaurant By ID--------------------- */
-router.get("/restaurants/:id", RestaurantById);
+router.get("/restaurant/:id", RestaurantById);
 
 export { router as ShoppingRoute };

@@ -66,4 +66,14 @@ export const SearchFoods = async (req: Request, res: Response, next: NextFunctio
   return res.status(400).json({ message: "Data Not Found" });
 };
 
-export const RestaurantById = async (req: Request, res: Response, next: NextFunction) => {};
+export const RestaurantById = async (req: Request, res: Response, next: NextFunction) => {
+  let id = req.params.id;
+
+  const result = await Vendor.find({ _id: id }).populate("foods");
+
+  if (result) {
+    return res.status(200).json(result);
+  }
+
+  return res.status(400).json({ message: "Data Not Found" });
+};
