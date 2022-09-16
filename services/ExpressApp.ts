@@ -11,7 +11,7 @@ export default async (app: Application) => {
 
   app.use("/admin", AdminRoute);
   app.use("/vendor", VendorRoute);
-  app.use("/user", CustomerRoute);
+  app.use("/customer", CustomerRoute);
 
   app.use(ShoppingRoute);
 
