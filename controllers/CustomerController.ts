@@ -1,3 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 
-export const SomeFunction = async (id: string | undefined, email?: string) => {};
+export const CustomerSignup = async (req: Request, res: Response, next: NextFunction) => {};
+
+export const CustomerLogin = async (req: Request, res: Response, next: NextFunction) => {};
+
+export const CustomerVerify = async (req: Request, res: Response, next: NextFunction) => {};
+
+export const RequestOtp = async (req: Request, res: Response, next: NextFunction) => {};
+
+export const GetCustomerProfile = async (req: Request, res: Response, next: NextFunction) => {};
+
+export const EditCustomerProfile = async (req: Request, res: Response, next: NextFunction) => {};
