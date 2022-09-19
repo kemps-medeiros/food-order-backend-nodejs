@@ -3,7 +3,7 @@ import { validate } from "class-validator";
 import { NextFunction, Request, Response } from "express";
 import { CreateCustomerInputs } from "../dto/Customer.dto";
 import { Customer } from "../models/Customer";
-import { GeneratePasswordEncrypted, GenerateSalt } from "../utility";
+import { GenerateOtp, GeneratePasswordEncrypted, GenerateSalt } from "../utility";
 
 export const CustomerSignup = async (req: Request, res: Response, next: NextFunction) => {
   const customerInputs = plainToClass(CreateCustomerInputs, req.body);
@@ -19,8 +19,12 @@ export const CustomerSignup = async (req: Request, res: Response, next: NextFunc
   const salt = await GenerateSalt();
   const userPassword = await GeneratePasswordEncrypted(password, salt);
 
-  const otp = 5698596;
+  const { otp, expiry } = GenerateOtp();
   const otp_expiry = new Date();
+
+  console.log(otp, expiry);
+
+  return res.json("working...");
 
   const result = await Customer.create({
     email: email,
@@ -28,7 +32,7 @@ export const CustomerSignup = async (req: Request, res: Response, next: NextFunc
     salt: salt,
     phone: phone,
     otp: otp,
-    otp_expiry: otp_expiry,
+    otp_expiry: expiry,
     firstName: "",
     lastName: "",
     address: "",
